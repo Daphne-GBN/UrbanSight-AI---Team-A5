@@ -21,9 +21,9 @@ function AnalysisResult({ stage1Data, stage2Data, userPrompt }) {
     const detText = (stage1Data.detections || [])
       .map((d) => `${d.label} (${d.count || 1})`)
       .join(", ");
-    doc.text(`Demo detections: ${detText || "None"}`, 14, 42);
+    doc.text(`YOLO Detections: ${detText || "None"}`, 14, 42);
 
-    doc.text("Demo summary:", 14, 56);
+    doc.text("Qwen2.5-VL Scene Description:", 14, 56);
     const wrapped = doc.splitTextToSize(stage2Data?.description || "", 180);
     doc.text(wrapped, 14, 64);
 
@@ -35,7 +35,7 @@ function AnalysisResult({ stage1Data, stage2Data, userPrompt }) {
       <section className="card result-card">
         <div className="card-top">
           <h2>
-            <ShieldCheck size={18} /> {stage1Data.session_id?.startsWith("demo_") ? "Illustrative demo preview" : "YOLOP detection preview"}
+            <ShieldCheck size={18} /> Stage 1: Blurred Image & YOLO Detections
           </h2>
           <span>
             {stage1Data.faces_blurred_count ?? 0} Faces Blurred ·{" "}
@@ -51,7 +51,6 @@ function AnalysisResult({ stage1Data, stage2Data, userPrompt }) {
 
         <div className="tags-row">
           <Tag size={15} />
-          {!stage1Data.detections?.length && <span>No objects detected at the current confidence threshold.</span>}
           {(stage1Data.detections || []).map((item, index) => (
             <span key={index} className="det-tag">
               {item.label} {item.count ? `x${item.count}` : ""} ({Math.round(item.confidence * 100)}%)
@@ -64,7 +63,7 @@ function AnalysisResult({ stage1Data, stage2Data, userPrompt }) {
         <section className="card result-card">
           <div className="card-top">
             <h2>
-              <FileText size={18} /> Detection summary & report
+              <FileText size={18} /> Stage 2: Qwen2.5-VL Description & PDF
             </h2>
             <button type="button" className="pdf-btn" onClick={handleDownloadPdf}>
               <Download size={15} /> Download PDF

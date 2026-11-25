@@ -6,7 +6,7 @@ import "./App.css";
 
 function App() {
   const [activePage, setActivePage] = useState("home");
-  const [useMockMode, setUseMockMode] = useState(false);
+  const [useMockMode, setUseMockMode] = useState(true);
 
   return (
     <div className="app-container">

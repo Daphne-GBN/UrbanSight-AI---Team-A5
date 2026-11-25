@@ -15,8 +15,8 @@ function PipelineStageLoader({ stage, previewUrl }) {
           <div className="loader-text">
             <ScanSearch size={20} />
             <div>
-              <h3>Running Privacy Blur & YOLOP Object Detection...</h3>
-              <p>Blurring faces/plates in privacy_blur.py and predicting bounding boxes in detector.py</p>
+              <h3>Running Haar Cascade Blur & YOLO Detection...</h3>
+              <p>Blurring faces/plates in privacy_blur.py and detecting objects in detector.py</p>
             </div>
           </div>
         </div>
@@ -29,8 +29,8 @@ function PipelineStageLoader({ stage, previewUrl }) {
           </div>
           <div className="loader-text">
             <div>
-              <h3>Preparing detection summary...</h3>
-              <p>Summarizing detected objects and preparing the report.</p>
+              <h3>Running Qwen2.5-VL Scene Analysis & PDF Builder...</h3>
+              <p>Generating description in vlm_analyzer.py and preparing report in pdf_generator.py</p>
             </div>
           </div>
         </div>
