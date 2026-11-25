@@ -164,8 +164,6 @@ The pretrained model performs:
 
 The original YOLOP model was trained on the BDD100K dataset. This project utilizes pretrained weights without requiring additional custom training.
 
-Official repository: https://github.com/hustvl/YOLOP
-
 Qwen-VL — Vision-Language Model
 
 Qwen-VL is a multimodal artificial intelligence model capable of interpreting visual information and generating natural-language responses.
@@ -177,8 +175,6 @@ In this project, Qwen-VL is responsible for:
 - Road infrastructure interpretation.
 - Traffic context analysis.
 - Structured description generation.
-
-Official repository: https://github.com/QwenLM/Qwen2.5-VL
 
 Haar Cascade Classifiers
 
