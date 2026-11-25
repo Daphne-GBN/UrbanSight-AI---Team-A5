@@ -1,8 +1,14 @@
-﻿fastapi
-uvicorn
-python-multipart
-opencv-python
-ultralytics
-reportlab
-requests
-pillow
+# Use Python 3.10 or 3.11. The NumPy cap supports older PyTorch builds.
+fastapi>=0.100,<1
+uvicorn[standard]>=0.23,<1
+python-multipart>=0.0.6
+pydantic>=2,<3
+numpy>=1.23,<2
+opencv-python>=4.8,<5
+Pillow>=11.3,<13
+torch>=2.0,<3
+torchvision>=0.15,<1
+yacs>=0.1.8
+scipy>=1.10
+PyYAML>=6
+reportlab>=4
