@@ -267,18 +267,6 @@ Evaluation criteria include:
 - Road condition monitoring.
 - Automated street scene reporting.
 
- Future Enhancements
-
-- Dedicated pedestrian detection using pretrained YOLO.
-- Improved face and license plate detection models.
-- Real-time video processing.
-- Batch image analysis.
-- Multilingual report generation.
-- Interactive traffic analytics dashboard.
-- Geographic information system integration.
-- Cloud deployment and inference optimization.
-- Enhanced privacy validation and AI hallucination reduction.
-
 🏆 Hackathon Project
 
 Problem Statement: PS 112 – Urban Street Scene Description Assistant
