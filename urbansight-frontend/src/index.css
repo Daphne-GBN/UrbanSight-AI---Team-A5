@@ -1,0 +1,8 @@
+/* Base reset kept clean so App.css controls layout and theme */
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
