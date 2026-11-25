@@ -3,7 +3,7 @@ import UploadForm from "./UploadForm";
 import PipelineStageLoader from "./PipelineStageLoader";
 import AnalysisResult from "./AnalysisResult";
 
-const API_BASE_URL = "http://localhost:8000";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
 
 function makeDemoAnnotatedImage(src) {
   return new Promise((resolve) => {
@@ -45,6 +45,11 @@ function Home({ useMockMode }) {
   const [error, setError] = useState("");
 
   const handleFileSelect = (file) => {
+    if (file.size > 20 * 1024 * 1024) {
+      setError("Choose an image smaller than 20 MB.");
+      return;
+    }
+    if (previewUrl) URL.revokeObjectURL(previewUrl);
     setImageFile(file);
     setPreviewUrl(URL.createObjectURL(file));
     setStage("idle");
@@ -54,6 +59,7 @@ function Home({ useMockMode }) {
   };
 
   const handleClear = () => {
+    if (previewUrl) URL.revokeObjectURL(previewUrl);
     setImageFile(null);
     setPreviewUrl("");
     setStage("idle");
@@ -87,11 +93,19 @@ function Home({ useMockMode }) {
       } else {
         const formData = new FormData();
         formData.append("image", imageFile);
-        const res1 = await fetch(`${API_BASE_URL}/api/preprocess-detect`, {
-          method: "POST",
-          body: formData,
-        });
-        if (!res1.ok) throw new Error("Stage 1 failed in Python backend");
+        let res1;
+        try {
+          res1 = await fetch(`${API_BASE_URL}/api/preprocess-detect`, {
+            method: "POST",
+            body: formData,
+          });
+        } catch {
+          throw new Error("Unable to connect to Python backend at http://localhost:8000. Please start the backend with 'uvicorn app:app --port 8000 --reload' or toggle Demo Mode.");
+        }
+        if (!res1.ok) {
+          const errData = await res1.json().catch(() => ({}));
+          throw new Error(errData.detail || "Stage 1 (Privacy Blur & YOLOP) failed in backend.");
+        }
         s1 = await res1.json();
       }
 
@@ -114,7 +128,10 @@ function Home({ useMockMode }) {
             user_prompt: userPrompt,
           }),
         });
-        if (!res2.ok) throw new Error("Stage 2 failed in Python backend");
+        if (!res2.ok) {
+          const errData = await res2.json().catch(() => ({}));
+          throw new Error(errData.detail || "Stage 2 (VLM summary) failed in backend.");
+        }
         s2 = await res2.json();
       }
 
@@ -130,6 +147,7 @@ function Home({ useMockMode }) {
 
   return (
     <div className="home-layout">
+      <div className="hero-panel"><span className="eyebrow">STREET SCENE INSPECTION</span><h1>See the street, clearly.</h1><p>Blur detected personal details, locate vehicles with YOLOP, and review the results in one place.</p>{useMockMode && <p className="demo-notice">Demo Mode uses illustrative boxes and counts. Switch to Live API for model predictions.</p>}<div className="pipeline-steps"><span>01 Upload</span><span>02 Privacy blur</span><span>03 YOLOP boxes</span><span>04 Report</span></div></div>
       <UploadForm
         imageFile={imageFile}
         previewUrl={previewUrl}

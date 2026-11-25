@@ -12,10 +12,10 @@ function About() {
           <strong>privacy_blur.py:</strong> Blurs faces and license plates with OpenCV Haar Cascades.
         </li>
         <li>
-          <strong>detector.py:</strong> Detects street objects with YOLO and returns bounding boxes/labels.
+          <strong>detector.py:</strong> Uses the included YOLOP checkpoint to detect vehicles and return bounding boxes.
         </li>
         <li>
-          <strong>vlm_analyzer.py:</strong> Generates a scene description using Qwen2.5-VL and the user prompt.
+          <strong>vlm_analyzer.py:</strong> Creates a count based summary from YOLOP results. Qwen2.5-VL is not connected.
         </li>
         <li>
           <strong>pdf_generator.py:</strong> Creates a downloadable PDF report from the analysis output.
