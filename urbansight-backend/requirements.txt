@@ -12,3 +12,4 @@ yacs>=0.1.8
 scipy>=1.10
 PyYAML>=6
 reportlab>=4
+ultralytics
